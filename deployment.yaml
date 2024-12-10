@@ -28,14 +28,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: wimb-service
-  labels:
-    app: wimb-s
+ name: wimb-service
+ labels:
+   app: wimb-s
 spec:
-  ports:
-  - port: 80          # 사용자가 요청을 보낼 포트
-    targetPort: 5000  # 요청이 전달될 Pod 내부 컨테이너 포트
-  selector:
-    app: wimb-p       # 파드를 식별하기 위한 라벨
-    tier: wimb-tier
-  type: LoadBalancer
+ sessionAffinity: ClientIP #sessionAffinity 추가
+ ports:
+ - port: 80          # 사용자가 요청을 보낼 포트
+   targetPort: 5000  # 요청이 전달될 Pod 내부 컨테이너 포트
+ selector:
+   app: wimb-p       # 파드를 식별하기 위한 라벨
+   tier: wimb-tier
+ type: LoadBalancer
